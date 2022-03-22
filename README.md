@@ -1,24 +1,34 @@
-# README
+1. Create a new application on Heroku <br>
+$ heroku create <br>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+2. Commit <br>
+$ git add -A <br>
+$ git commit -m "init" <br>
 
-Things you may want to cover:
+3. Deploy to Heroku <br>
+$ git push heroku master <br>
 
-* Ruby version
+4. Database migration <br>
+$ heroku run rails db:migrate <br>
 
-* System dependencies
+User Model
+|Column name  |Data type |
+|-------------|----------|
+|name         |string    |
+|email        |string    |
+|password     |string    |
+|password<br>
+_confirm      |string    |
 
-* Configuration
 
-* Database creation
+Task Model
+|Column name　|Data type  |
+|-------------|-----------|
+|name         |string     |
+|description  |text       |
 
-* Database initialization
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Label Model
+|Column name  |Data type |
+|-------------|----------|
