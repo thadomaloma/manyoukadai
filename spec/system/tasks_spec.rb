@@ -48,7 +48,7 @@ RSpec.describe "Task management function", type: :system do
 				visit tasks_path
 				click_on "Show"
 				expect(page).to have_content 'task name2'
-				expect(page).to have_button 'task details2'
+				expect(page).to have_content 'task details2'
 			end
 		end
 		context 'When tasks are arranged in descending order of creation date and time' do
