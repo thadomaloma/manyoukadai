@@ -57,4 +57,51 @@ RSpec.describe "Users", type: :system do
 		end
 	end
 
+	describe "Admin screen test" do
+		before do
+			FactoryBot.create(:user, name: "general user", email: "user@example.com", password: "password")
+			FactoryBot.create(:user, name: "admin", email: "admin_user@example.com", password: "password", is_admin: true)
+		end
+		it "Admin users should be able to access the admin screen" do
+			admin_login
+			visit admin_users_path
+			expect(page).to have_current_path(admin_users_path)
+		end
+
+		it "General users cannot access the management screen" do
+			user_login
+			visit admin_users_path
+			expect(page).not_to have_current_path(admin_users_path)
+		end
+
+		it "Admin users can register new users" do
+			admin_login
+			visit new_admin_user_path
+			fill_in "Name", with: "test_name"
+			fill_in "Email", with: "create_user@example.com"
+			fill_in "Password", with: "password"
+			fill_in "Password confirmation", with: "password"
+			click_on "create account"
+			expect(page).to have_content "create_user@example.com"
+		end
+
+		it "The admin user can edit the user from the user edit screen" do
+			admin_login
+			@user = User.find_by(name: "admin")
+			visit edit_admin_user_path(@user.id)
+			fill_in "Name", with: "change_name"
+			fill_in "Email", with: "admin_user@example.com"
+			fill_in "Password", with: "password"
+			fill_in "Password confirmation", with: "password"
+			click_button "edit account"
+			expect(page).to have_content "change_name"
+		end
+
+		it "Admin users can delete users" do
+			admin_login
+			visit admin_users_path
+			click_link "Destroy", match: :first
+			expect(page).not_to have_content "general user"
+		end
+	end
 end
