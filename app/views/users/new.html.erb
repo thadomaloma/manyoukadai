@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-body">
+    <h3>User registration</h3>
+
+      <div class="error_explaination">
+        <% if @user.errors.any? %>
+          <%= pluralize(@user.errors.count, 'error') %>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+            <li>
+              <%= msg %>
+            </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
+        <%= form_with(model: @user, local:true) do |f| %>
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+          <br/>
+          <%= f.label :email %>
+          <%= f.email_field :email %>
+          <br/>
+          <%= f.label :password %>
+          <%= f.password_field :password %>
+          <br/>
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation %>
+          <br/>
+          <%= f.submit "create account" %>
+        <% end %>
+  </div>
+</div>

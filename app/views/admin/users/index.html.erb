@@ -1,0 +1,28 @@
+<h3>Admin page</h3>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Total task</th>
+		<th>Admin</th>
+	</tr>
+	<% @user.each do |user| %>
+	<tr>
+		<td><%= user.name %></td>
+		<td><%= user.email %></td>
+		<td><%= user.tasks.count %></td>
+		<td><%= user.is_admin %></td>
+		<td><%= link_to 'Show', admin_user_path(user.id), class:"badge btn-light p-2"%></td>
+		<td><%= link_to 'Edit', edit_admin_user_path(user.id), class:"badge btn-light p-2" %></td>
+		<td><%= link_to 'Destroy', admin_user_path(user.id), method: :delete, class:"badge btn-light p-2" %></td>
+		<% if user.is_admin? %>
+		  <td><%= link_to 'Delete admin', admin_user_path(user, is_admin: "false"), method: :put, class:"badge btn-light p-2 text-dark border border-light" %></td>
+		<% else %>
+		  <td><%= link_to 'Make admin', admin_user_path(user, is_admin: "true"), method: :put, class:"badge btn-light p-2 text-dark border border-light" %></td>
+		<% end %>
+	</tr>
+	<% end %>
+</table>
+
+<%= link_to 'create user', new_admin_user_path, class: "badge btn-outline-success p-2" %>
