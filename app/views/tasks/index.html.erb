@@ -4,7 +4,7 @@
 
 <%= link_to 'New Task', new_task_path, class: "btn btn-info btn-sm" %>
 <%= form_with url: tasks_path, method: :get, html: {class: "form-inline"} , local: true do |form| %>
-  <%= form.search_field :title, placeholder: "Search by title", class: "form-control mr-sm-2" %>
+  <%= form.search_field :title, placeholder: "Search by title" %>
   <%= form.label :status, "Search by Status: " %>
   <%= form.select :status, options_for_select([[''],['not started'], ['started'], ['completed']]), class: "form-control mr-sm-2" %>
   <%= form.submit value: "search", class: "btn btn-outline-success my-2 my-sm-0", type: "submit" %>
