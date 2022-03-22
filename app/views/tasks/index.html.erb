@@ -1,6 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Tasks</h1>
+<h1>Task List</h1>
 
 <%= link_to 'New Task', new_task_path, class: "btn btn-info btn-sm" %>
 <%= form_with url: tasks_path, method: :get, html: {class: "form-inline"} , local: true do |form| %>
