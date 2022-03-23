@@ -1,0 +1,14 @@
+<table>
+	<tr>
+		<th>Name</th>
+	</tr>
+	<% @labels.each do |label| %>
+	<tr>
+		<td><%= label.name %></td>
+		<td><%= link_to "show", label_path(label.id) %> </td>
+		<td><%= link_to "edit", edit_label_path(label.id) %></td>
+		<td><%= link_to "delete", label_path(label.id), method: :delete %></td>
+	</tr>
+	<% end %>
+</table>
+<%= link_to "create a new label", new_label_path %>
