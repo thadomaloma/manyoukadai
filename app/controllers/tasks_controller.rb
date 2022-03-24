@@ -4,20 +4,23 @@ before_action :set_task, only: %i[ show edit update destroy ]
 
  def index
    if params[:sort].present?
-     @tasks = Task.where(user_id: current_user.id).order(params[:sort]).page params[:page]
-       elsif params[:sort_priority]
-     @tasks = Task.where(user_id: current_user.id).order(priority: :asc).page params[:page]
-   elsif params[:title].present?
-     if params[:status].present?
-       @tasks = Task.where(user_id: current_user.id).title_search(params[:title]).status_search(params[:status]).page params[:page]
-     else
-       @tasks = Task.where(user_id: current_user.id).title_search(params[:title]).page params[:page]
-     end
-   elsif params[:status].present?
-     @tasks = Task.where(user_id: current_user.id).status_search(params[:status]).page params[:page]
-   else
-     @tasks = Task.where(user_id: current_user.id).order(created_at: :desc).page params[:page]
-   end
+      @tasks = Task.where(user_id: current_user.id).order(params[:sort]).page params[:page]
+        elsif params[:sort_priority]
+      @tasks = Task.where(user_id: current_user.id).order(priority: :asc).page params[:page]
+    elsif params[:title].present?
+      if params[:status].present?
+        @tasks = Task.where(user_id: current_user.id).title_search(params[:title]).status_search(params[:status]).page params[:page]
+      else
+        @tasks = Task.where(user_id: current_user.id).title_search(params[:title]).page params[:page]
+      end
+    elsif params[:status].present?
+      @tasks = Task.where(user_id: current_user.id).status_search(params[:status]).page params[:page]
+    elsif params[:label_id].present?
+      task_id = TaskLabel.where(label_id: params[:label_id]).pluck(:task_id)
+      @tasks = Task.where(id: task_id[0]).page params[:page]
+    else
+      @tasks = Task.where(user_id: current_user.id).order(created_at: :desc).page params[:page]
+    end
  end
 
 
@@ -63,6 +66,6 @@ before_action :set_task, only: %i[ show edit update destroy ]
    end
 
    def task_params
-     params.require(:task).permit(:title, :detail, :deadline, :priority, :status)
+     params.require(:task).permit(:title, :detail, :deadline, :priority, :status, label_ids: [])
    end
 end
