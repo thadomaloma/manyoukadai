@@ -17,6 +17,7 @@
           <%= link_to "Admin", admin_users_path %>
         <% end %>
         <%= link_to "Task list", tasks_path %> |
+        <%= link_to "Labels", labels_path %> |
         <%= link_to "Profile", user_path(current_user.id) %> |
         <%= link_to "Logout", session_path(current_user.id), method: :delete %>
       <% else %>
